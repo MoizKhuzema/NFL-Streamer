@@ -1,0 +1,104 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url('background.jpg'); /* Replace with the actual path to your image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+header {
+    background: rgba(97, 184, 255, 0.1); /* Translucent red-pink color with less opacity */
+    text-align: center;
+    padding: 1em 0;
+}
+
+.company-box {
+    background-color: #9e2a2b; /* Darker shade of red-pink */
+    padding: 10px;
+    border-radius: 15px; /* Rounded corners */
+    display: inline-block;
+}
+
+.logo {
+    font-family: 'Impact', sans-serif; /* Sporty font */
+    color: #fff;
+    margin: 0;
+}
+
+.logo-image {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    border-radius: 50%; /* Make it circular */
+}
+
+main {
+    padding: 20px;
+}
+
+#options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.option {
+    text-align: center;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.league-btn {
+    padding: 5px;
+    border: 5px solid transparent; /* Initially, no border */
+    border-radius: 100%;
+    cursor: pointer;
+    background: rgba(122, 149, 172, 0.4); 
+}
+
+.league-btn:hover {
+    background-color: rgba(122, 149, 172, 0.7); /* Lighter background on hover */
+}
+
+.league-btn.active {
+    border-color: #9e2a2b; /* Pinkish color for the active state */
+}
+
+.week-btn {
+    padding: 10px;
+    background-color: rgba(122, 149, 172, 0.4); /* Background color with alpha for transparency */
+    border: 2px solid transparent; /* Initially, no border */
+    border-radius: 20%; /* Rounded border */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.week-btn:hover {
+    background-color: rgba(122, 149, 172, 0.7); /* Lighter background on hover */
+}
+
+.week-btn.active {
+    background-color: #a84041; /* Border color in the active state */
+    color: #fff; /* Text color in the active state */
+}
+
+#matches-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#matches-table th, #matches-table td {
+    border: 1px solid #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+#matches-table th {
+    background-color: #333;
+    color: orange;
+}

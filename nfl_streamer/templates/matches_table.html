@@ -1,0 +1,38 @@
+<!-- matches_table.html -->
+
+<table id="matches-table">
+    <thead>
+        <tr>
+            <th>League</th>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Stream Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if data %}
+            {% for match in data %}
+                <tr>
+                    <td>{{ match['league'] }}</td>
+                    <td>{{ match['home_team'] }}</td>
+                    <td>{{ match['away_team'] }}</td>
+                    <td>{{ match['date'] }}</td>
+                    <td>{{ match['time'] }}</td>
+                    <td>
+                        {% if match['stream_link'] == 'Links will appear around 60 mins prior to kick-off' %}
+                            Coming Soon
+                        {% else %}
+                            <a href="{{ match['stream_link'] }}">Watch</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="6">No matches available</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>

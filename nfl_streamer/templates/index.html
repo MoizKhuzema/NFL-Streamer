@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>NFLSCORE - Live Matches</title>
+</head>
+<body>
+    <header>
+        <div class="company-box">
+            <h1 class="logo">Score Stream Pro</h1>
+        </div>
+    </header>
+    
+    <main>
+        <section id="options">
+            <div class="option">
+                <div class="button-group">
+                    <button id="nfl-btn" class="league-btn" onclick="selectLeague('nfl')" data-league="nfl"> <!-- Add data-league attribute -->
+                        <img src="{{ url_for('static', filename='nfl_logo.png') }}" alt="NFL Logo" class="logo-image">
+                    </button>
+                    <button id="ncaa-btn" class="league-btn" onclick="selectLeague('ncaa')" data-league="ncaa"> <!-- Add data-league attribute -->
+                        <img src="{{ url_for('static', filename='ncaa_logo.png') }}" alt="NCAA Logo" class="logo-image">
+                    </button>
+                </div>
+            </div>
+
+            <div class="option">
+                <div class="button-group">
+                    <button class="week-btn" onclick="selectWeek('this-week')" data-week="this-week">This Week</button>
+                    <button class="week-btn" onclick="selectWeek('next-week')" data-week="next-week">Next Week</button>
+                    <button class="week-btn" onclick="selectWeek('last-week')" data-week="last-week">Last Week</button>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="matches-table">
+            {% include 'matches_table.html' %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 NFLSCORE - Live Matches</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const leagueButtons = document.querySelectorAll('.league-btn');
+            const weekButtons = document.querySelectorAll('.week-btn');
+
+            function updateContent(league, week) {
+                // Fetch and update content based on selected league and week
+                const url = `/update-content?league=${league}&week=${week}`;
+
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        // Update the matches-table section with the new content
+                        document.getElementById('matches-table').innerHTML = html;
+                    })
+                    .catch(error => console.error('Error fetching content:', error));
+            }
+
+            leagueButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const selectedLeague = button.getAttribute('data-league'); // Use data-league here
+                    updateContent(selectedLeague, getSelectedWeek());
+                    updateButtonState(leagueButtons, selectedLeague);
+                });
+            });
+
+            weekButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const selectedWeek = button.getAttribute('data-week');
+                    updateContent(getSelectedLeague(), selectedWeek);
+                    updateButtonState(weekButtons, selectedWeek);
+                });
+            });
+
+            function getSelectedLeague() {
+                const activeLeagueButton = document.querySelector('.league-btn.active');
+                return activeLeagueButton ? activeLeagueButton.getAttribute('data-league') : 'nfl';
+            }
+
+            function getSelectedWeek() {
+                const activeWeekButton = document.querySelector('.week-btn.active');
+                return activeWeekButton ? activeWeekButton.getAttribute('data-week') : 'this-week';
+            }
+
+            function updateButtonState(buttons, selectedValue) {
+                buttons.forEach(function(btn) {
+                    const dataAttribute = btn.getAttribute('data-league'); // Use data-league here
+                    btn.classList.toggle('active', dataAttribute === selectedValue);
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>
